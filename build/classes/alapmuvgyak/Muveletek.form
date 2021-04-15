@@ -11,12 +11,20 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuFajlMegnyit">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Megnyit"/>
+                <Property name="text" type="java.lang.String" value="Megnyit..."/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuFajlMent">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ment"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuFajlMentActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnufajMentesMaskent">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ment&#xe9;s m&#xe1;sk&#xe9;nt..."/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
