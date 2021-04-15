@@ -214,6 +214,11 @@ public class Muveletek extends javax.swing.JFrame {
         mnuFajl.add(mnuFajlMent);
 
         mnufajMentesMaskent.setText("Mentés másként...");
+        mnufajMentesMaskent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnufajMentesMaskentActionPerformed(evt);
+            }
+        });
         mnuFajl.add(mnufajMentesMaskent);
         mnuFajl.add(jSeparator1);
 
@@ -290,6 +295,26 @@ public class Muveletek extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_mnuFajlMentActionPerformed
+
+    private void mnufajMentesMaskentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnufajMentesMaskentActionPerformed
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Fálj mentése");
+        fc.setCurrentDirectory(new File("."));
+        
+        
+        int valasztottGombErtek = fc.showSaveDialog(this);
+        if (valasztottGombErtek == JFileChooser.APPROVE_OPTION) {
+            File f = fc.getSelectedFile();
+                lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Fálj neve: " + f.getName() + "</html>");
+                try {
+                    Files.write(Paths.get(f.getPath() + "stat.txt"), "Statisztika:".getBytes());
+                } catch (IOException ex) {
+                    Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+        }
+        
+    }//GEN-LAST:event_mnufajMentesMaskentActionPerformed
 
     /**
      * @param args the command line arguments
