@@ -276,23 +276,36 @@ public class Muveletek extends javax.swing.JFrame {
     private void btnMegoldasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMegoldasActionPerformed
 
     }//GEN-LAST:event_btnMegoldasActionPerformed
-
+    String mentettFalj;
     private void mnuFajlMentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMentActionPerformed
-        JFileChooser fc = new JFileChooser();
-        fc.setDialogTitle("Fálj mentése");
-        fc.setCurrentDirectory(new File("."));
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//        JFileChooser fc = new JFileChooser();
+//        fc.setDialogTitle("Fálj mentése");
+//        fc.setCurrentDirectory(new File("."));
+//        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//
+//        int valasztottGombErtek = fc.showSaveDialog(this);
+//        if (valasztottGombErtek == JFileChooser.APPROVE_OPTION) {
+//            File f = fc.getSelectedFile();
+//            if (f.isDirectory()) {
+//                lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "</html>");
+//                try {
+//                    Files.write(Paths.get(f.getPath() + "stat.txt"), "Statisztika:".getBytes());
+//                } catch (IOException ex) {
+//                    Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        }
+        /*az elsö mentésnél mentés másként kell */
+        if (mentettFalj == null) {
+            mnufajMentesMaskentActionPerformed(evt);
 
-        int valasztottGombErtek = fc.showSaveDialog(this);
-        if (valasztottGombErtek == JFileChooser.APPROVE_OPTION) {
-            File f = fc.getSelectedFile();
-            if (f.isDirectory()) {
-                lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "</html>");
-                try {
-                    Files.write(Paths.get(f.getPath() + "stat.txt"), "Statisztika:".getBytes());
-                } catch (IOException ex) {
-                    Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        } else {
+            /*a továbiaknál a megadott helyre és a megadott neven kell a menteni a fálj*/
+            try {
+                Files.write(Paths.get(mentettFalj), "Statisztika:".getBytes());
+                /*tényleges kiírás VÉGE*/
+            } catch (IOException ex) {
+                Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -324,7 +337,7 @@ public class Muveletek extends javax.swing.JFrame {
 
         fc.setFileFilter(ff);
         /*megjelenit jük a válszt*/
-       
+
         int valasztottGombErtek = fc.showSaveDialog(this);
         /* ha el akkarja menteni*/
         if (valasztottGombErtek == JFileChooser.APPROVE_OPTION) {
@@ -335,15 +348,18 @@ public class Muveletek extends javax.swing.JFrame {
             /*kiterjesztés vizsgálata*/
             if (!fn.endsWith("." + kit[0])) {
                 fn += "." + kit[0];
-            }          
+            }
             /*kiterjesztés vizsgálata VÉGE*/
-            /*létezik e a fálj */
-            boolean mentes = true; 
+            
+            boolean mentes = true;
+            mentettFalj = fn;
+            
+             /*létezik e a fálj */
             Path path = Paths.get(fn);
             if (Files.exists(path)) {
-               valasztottGombErtek = JOptionPane.showConfirmDialog(this, "Felül", "A fálj már létezik", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                valasztottGombErtek = JOptionPane.showConfirmDialog(this, "Felül", "A fálj már létezik", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 if (valasztottGombErtek == JOptionPane.NO_OPTION) {
-                    
+
                 }
             }
             /*létezik e a fálj VÉGE*/
@@ -358,7 +374,7 @@ public class Muveletek extends javax.swing.JFrame {
                 Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "A mentés megszakitva", "Mentés sikertelen", JOptionPane.INFORMATION_MESSAGE);
         }
 
