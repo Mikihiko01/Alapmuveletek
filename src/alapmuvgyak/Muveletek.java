@@ -401,7 +401,7 @@ public class Muveletek extends javax.swing.JFrame {
         fc.addChoosableFileFilter(cspff);
 
         fc.setFileFilter(ff);
-        /*megjelenit jük a válszt*/
+        /*megjelenitjük a válszt*/
 
         int valasztottGombErtek = fc.showOpenDialog(this);
         /* ha el akkarja menteni*/
@@ -409,14 +409,15 @@ public class Muveletek extends javax.swing.JFrame {
             File f = fc.getSelectedFile();        
             String fn = f.getPath();// + "." + kit[0];
              lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Fálj neve: " + f.getName() + "." + "</html>");
-           // ténleges kiirás
+           
+           
            //a tényleges megnyitás
            
            
            // a tényleges megnyitás vége
            
         }else{
-         JOptionPane.showMessageDialog(this, "megnyitás" + JOptionPane.INFORMATION_MESSAGE);
+         JOptionPane.showMessageDialog(this, "megnyitás","A MEGNYITÁS SIKERTELEN VOLT!", + JOptionPane.INFORMATION_MESSAGE);
         
         }
     }//GEN-LAST:event_mnuFajlMegnyitActionPerformed
@@ -488,4 +489,12 @@ public class Muveletek extends javax.swing.JFrame {
     private javax.swing.JPanel pnlGyakorlas;
     private javax.swing.JTextField txtEredmeny;
     // End of variables declaration//GEN-END:variables
+
+    private String tartalomOsszealitasa() {
+       String statisztika = "Alapműveletek gyakorlása statisztika:\n";
+       
+       return statisztika;
+       
+       
+    }
 }
