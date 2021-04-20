@@ -206,6 +206,11 @@ public class Muveletek extends javax.swing.JFrame {
         mnuFajl.setText("Fájl");
 
         mnuFajlMegnyit.setText("Megnyit...");
+        mnuFajlMegnyit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFajlMegnyitActionPerformed(evt);
+            }
+        });
         mnuFajl.add(mnuFajlMegnyit);
 
         mnuFajlMent.setText("Ment");
@@ -277,6 +282,7 @@ public class Muveletek extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnMegoldasActionPerformed
     String mentettFalj;
+    String megnyitFalj;
     private void mnuFajlMentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMentActionPerformed
 //        JFileChooser fc = new JFileChooser();
 //        fc.setDialogTitle("Fálj mentése");
@@ -379,6 +385,41 @@ public class Muveletek extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_mnufajMentesMaskentActionPerformed
+                 boolean megnyitas = true;
+            
+    private void mnuFajlMegnyitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMegnyitActionPerformed
+        JFileChooser fc = new JFileChooser(new File("."));
+        fc.setDialogTitle("Megnyitás");
+        /*válastható fálj beállitása*/
+        fc.setAcceptAllFileFilterUsed(false);
+
+        FileNameExtensionFilter ff = new FileNameExtensionFilter("png és gif", "png", "gif");
+        fc.addChoosableFileFilter(ff);
+        FileNameExtensionFilter txtff = new FileNameExtensionFilter("csak szöveg (*.txt)", "txt");
+        fc.addChoosableFileFilter(txtff);
+        FileNameExtensionFilter cspff = new FileNameExtensionFilter("Saját (*.csp)", "csp");
+        fc.addChoosableFileFilter(cspff);
+
+        fc.setFileFilter(ff);
+        /*megjelenit jük a válszt*/
+
+        int valasztottGombErtek = fc.showOpenDialog(this);
+        /* ha el akkarja menteni*/
+        if (valasztottGombErtek == JFileChooser.APPROVE_OPTION) {
+            File f = fc.getSelectedFile();        
+            String fn = f.getPath();// + "." + kit[0];
+             lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Fálj neve: " + f.getName() + "." + "</html>");
+           // ténleges kiirás
+           //a tényleges megnyitás
+           
+           
+           // a tényleges megnyitás vége
+           
+        }else{
+         JOptionPane.showMessageDialog(this, "megnyitás" + JOptionPane.INFORMATION_MESSAGE);
+        
+        }
+    }//GEN-LAST:event_mnuFajlMegnyitActionPerformed
 
     /**
      * @param args the command line arguments
