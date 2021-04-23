@@ -46,6 +46,34 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="M&#x171;veletek"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#xd6;ssszead&#xe1;s"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuMuvKivonas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Kivon&#xe1;s"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuMuveletOsztas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Oszt&#xe1;s"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuMuveletOsztasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuMuvSzorzas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Szorz&#xe1;s"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuMuvSzorzasActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

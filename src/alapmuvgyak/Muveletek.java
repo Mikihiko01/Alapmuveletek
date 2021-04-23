@@ -14,6 +14,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Muveletek extends javax.swing.JFrame {
 
+    String mentettFalj;
+    String megnyitFalj;
+    int osszKerdesSzama = 0;
+    int osztKerdesSzama = 0;
+    //osztas
+    int osztasKerdesSzama = 0;
+    int osszProbaSZáma =0;
+    //szorzas
+    int szorzasKerdesSzama = 0;
+    int szorzasProbaSZáma =0;
     /**
      * Creates new form Muveletek
      */
@@ -57,6 +67,10 @@ public class Muveletek extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mnuFajlKilep = new javax.swing.JMenuItem();
         mnuMuvelet = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        mnuMuvKivonas = new javax.swing.JMenuItem();
+        mnuMuveletOsztas = new javax.swing.JMenuItem();
+        mnuMuvSzorzas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Alapműveletek gyakoroltatása");
@@ -237,6 +251,29 @@ public class Muveletek extends javax.swing.JFrame {
         jMenuBar1.add(mnuFajl);
 
         mnuMuvelet.setText("Műveletek");
+
+        jMenuItem1.setText("Össszeadás");
+        mnuMuvelet.add(jMenuItem1);
+
+        mnuMuvKivonas.setText("Kivonás");
+        mnuMuvelet.add(mnuMuvKivonas);
+
+        mnuMuveletOsztas.setText("Osztás");
+        mnuMuveletOsztas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMuveletOsztasActionPerformed(evt);
+            }
+        });
+        mnuMuvelet.add(mnuMuveletOsztas);
+
+        mnuMuvSzorzas.setText("Szorzás");
+        mnuMuvSzorzas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMuvSzorzasActionPerformed(evt);
+            }
+        });
+        mnuMuvelet.add(mnuMuvSzorzas);
+
         jMenuBar1.add(mnuMuvelet);
 
         setJMenuBar(jMenuBar1);
@@ -276,14 +313,24 @@ public class Muveletek extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEllenorzesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEllenorzesActionPerformed
+        //generált feladat eredményénke ellenörzése
+       
+        osszProbaSZáma++;       
+        if (mnuMuveletOsztas.isSelected()) {
+            osszProbaSZáma++;
+            lblOsszProba.setText("Összes Probálkozások száma" + osszProbaSZáma);
+        }else if (mnuMuvSzorzas.isSelected()){
+            szorzasProbaSZáma++;
+            lblOsszProba.setText("Összes Probálkozások száma" + osszProbaSZáma);
+        }
+        
 
     }//GEN-LAST:event_btnEllenorzesActionPerformed
 
     private void btnMegoldasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMegoldasActionPerformed
 
     }//GEN-LAST:event_btnMegoldasActionPerformed
-    String mentettFalj;
-    String megnyitFalj;
+
     private void mnuFajlMentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMentActionPerformed
 //        JFileChooser fc = new JFileChooser();
 //        fc.setDialogTitle("Fálj mentése");
@@ -357,11 +404,11 @@ public class Muveletek extends javax.swing.JFrame {
                 fn += "." + kit[0];
             }
             /*kiterjesztés vizsgálata VÉGE*/
-            
+
             boolean mentes = true;
             mentettFalj = fn;
-            
-             /*létezik e a fálj */
+
+            /*létezik e a fálj */
             Path path = Paths.get(fn);
             if (Files.exists(path)) {
                 valasztottGombErtek = JOptionPane.showConfirmDialog(this, "Felül", "A fálj már létezik", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -386,8 +433,8 @@ public class Muveletek extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_mnufajMentesMaskentActionPerformed
-                 boolean megnyitas = true;
-            
+    boolean megnyitas = true;
+
     private void mnuFajlMegnyitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMegnyitActionPerformed
         JFileChooser fc = new JFileChooser(new File("."));
         fc.setDialogTitle("Megnyitás");
@@ -407,21 +454,47 @@ public class Muveletek extends javax.swing.JFrame {
         int valasztottGombErtek = fc.showOpenDialog(this);
         /* ha el akkarja menteni*/
         if (valasztottGombErtek == JFileChooser.APPROVE_OPTION) {
-            File f = fc.getSelectedFile();        
+            File f = fc.getSelectedFile();
             String fn = f.getPath();// + "." + kit[0];
-             lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Fálj neve: " + f.getName() + "." + "</html>");
-           
-           
-           //a tényleges megnyitás
-           
-           
-           // a tényleges megnyitás vége
-           
-        }else{
-         JOptionPane.showMessageDialog(this, "megnyitás","A MEGNYITÁS SIKERTELEN VOLT!", + JOptionPane.INFORMATION_MESSAGE);
-        
+            lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Fálj neve: " + f.getName() + "." + "</html>");
+
+            //a tényleges megnyitás
+            // a tényleges megnyitás vége
+        } else {
+            JOptionPane.showMessageDialog(this, "megnyitás", "A MEGNYITÁS SIKERTELEN VOLT!", +JOptionPane.INFORMATION_MESSAGE);
+
         }
     }//GEN-LAST:event_mnuFajlMegnyitActionPerformed
+
+    private void mnuMuveletOsztasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMuveletOsztasActionPerformed
+        // 0 ... 100 közzötti számok, hányadosa legyen egész ,0 nem lehet az osztó
+        int oszto, osztando;
+        boolean jo;
+        do {
+            oszto = (int) (Math.random() * 101);
+            osztando = (int) (Math.random() * 101);
+            jo = oszto != 0 && osztando % oszto == 0;
+        } while (!jo);
+        lblFeladat.setText(osztando + " / " + oszto + " = ");
+        //statisztika frissitése
+        osszKerdesSzama++;
+
+        lblOsszKerdes.setText("Össz kérdések száma: " + osszKerdesSzama);
+        osszKerdesSzama++;
+        lblOsztasKerdes.setText("Osztás: " + osszKerdesSzama);
+
+    }//GEN-LAST:event_mnuMuveletOsztasActionPerformed
+
+    private void mnuMuvSzorzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMuvSzorzasActionPerformed
+        /*feladat*/
+
+        //statisztika frissitése
+        osszKerdesSzama++;
+
+        lblOsszKerdes.setText("Össz kérdések száma: " + osszKerdesSzama);
+        osszKerdesSzama++;
+        lblSzorzasKerdes.setText("Szorzás: " + osszKerdesSzama);
+    }//GEN-LAST:event_mnuMuvSzorzasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,6 +539,7 @@ public class Muveletek extends javax.swing.JFrame {
     private javax.swing.JButton btnMegoldas;
     private javax.swing.JButton btnUj;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblEredmeny;
@@ -485,33 +559,35 @@ public class Muveletek extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuFajlKilep;
     private javax.swing.JMenuItem mnuFajlMegnyit;
     private javax.swing.JMenuItem mnuFajlMent;
+    private javax.swing.JMenuItem mnuMuvKivonas;
+    private javax.swing.JMenuItem mnuMuvSzorzas;
     private javax.swing.JMenu mnuMuvelet;
+    private javax.swing.JMenuItem mnuMuveletOsztas;
     private javax.swing.JMenuItem mnufajMentesMaskent;
     private javax.swing.JPanel pnlGyakorlas;
     private javax.swing.JTextField txtEredmeny;
     // End of variables declaration//GEN-END:variables
 
     private String tartalomOsszealitasa() {
-       String statisztika = "Alapműveletek gyakorlása statisztika:\n";
-       
-        JLabel[] lblTomb = new JLabel[]{lblOsszKerdes,lblOsszProba,lblOsszeadKerdes,lblOsszeadProba,lblKivonasKerdes,lblKivonasProba, lblOsztasKerdes,lblOsztasProba,lblSzorzasKerdes,lblSzorzasProba};
-       
+        String statisztika = "Alapműveletek gyakorlása statisztika:\n";
+
+        JLabel[] lblTomb = new JLabel[]{lblOsszKerdes, lblOsszProba, lblOsszeadKerdes, lblOsszeadProba, lblKivonasKerdes, lblKivonasProba, lblOsztasKerdes, lblOsztasProba, lblSzorzasKerdes, lblSzorzasProba};
+
 //       statisztika+=lblOsszKerdes.getText();
 //       statisztika+=lblOsszProba.getText();
 //         for (JLabel lbl : lblTomb) {
 //            statisztika+=lbl.getText() + "\n";
 //        }
-            final int HE = 3;
-            final int OSSZ_KERDES_HOSSZ = lblTomb[0].getText().length();
-            final int OSSZ_PROBA_HOSSZ = lblTomb[1].getText().length();
-         for (int i = 0; i < lblTomb.length-1; i+= 2) {
-            String format = "%s"+ (OSSZ_KERDES_HOSSZ + HE) + "%s"+(OSSZ_PROBA_HOSSZ + HE)+"s\n";
-             statisztika += String.format(format,lblTomb[i].getText(),lblTomb[i + 1].getText());
- 
+        final int HE = 3;
+        final int OSSZ_KERDES_HOSSZ = lblTomb[0].getText().length();
+        final int OSSZ_PROBA_HOSSZ = lblTomb[1].getText().length();
+        for (int i = 0; i < lblTomb.length - 1; i += 2) {
+            String format = "%s" + (OSSZ_KERDES_HOSSZ + HE) + "%s" + (OSSZ_PROBA_HOSSZ + HE) + "s\n";
+            statisztika += String.format(format, lblTomb[i].getText(), lblTomb[i + 1].getText());
+
         }
-       
-       return statisztika;
-       
-       
+
+        return statisztika;
+
     }
 }
