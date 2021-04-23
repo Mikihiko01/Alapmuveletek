@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -459,7 +460,18 @@ public class Muveletek extends javax.swing.JFrame {
             lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Fálj neve: " + f.getName() + "." + "</html>");
 
             //a tényleges megnyitás
-            // a tényleges megnyitás vége
+             Path path = Paths.get(fn);
+            try {
+//               byte[] bajtTomb = Files.readAllBytes(path);
+//               byte egyBajt = bajtTomb[0];
+               int temp = 67;
+               List<String> stringlista = Files.readAllLines(path);
+               String egySor = stringlista.get(0);
+                
+                // a tényleges megnyitás vége
+            } catch (IOException ex) {
+                Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "megnyitás", "A MEGNYITÁS SIKERTELEN VOLT!", +JOptionPane.INFORMATION_MESSAGE);
 
