@@ -21,15 +21,23 @@ public class Muveletek extends javax.swing.JFrame {
     int osztKerdesSzama = 0;
     //osztas
     int osztasKerdesSzama = 0;
-    int osszProbaSZáma =0;
+    int osszProbaSZáma = 0;
     //szorzas
     int szorzasKerdesSzama = 0;
-    int szorzasProbaSZáma =0;
+    int szorzasProbaSZáma = 0;
+
+    JLabel[] lblTomb;
+    String[] lblTextTomb;
+
     /**
      * Creates new form Muveletek
      */
     public Muveletek() {
         initComponents();
+
+        lblTomb = new JLabel[]{lblOsszKerdes, lblOsszProba, lblOsszeadKerdes, lblOsszeadProba, lblKivonasKerdes, lblKivonasProba, lblOsztasKerdes, lblOsztasProba, lblSzorzasKerdes, lblSzorzasProba};
+        lblTextTomb = new String[]{"Össz kérdések száma: ","Össz Probákszáma: ","Összeadás: ","Kivonás: ","Osztás: ","Szorzás: "} ;
+    
     }
 
     /**
@@ -177,7 +185,7 @@ public class Muveletek extends javax.swing.JFrame {
                             .addComponent(lblOsztasKerdes, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblSzorzasKerdes, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblOsszKerdes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblKivonasProba, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblSzorzasProba, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -285,15 +293,15 @@ public class Muveletek extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlGyakorlas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnUj, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnMegoldas, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,16 +323,16 @@ public class Muveletek extends javax.swing.JFrame {
 
     private void btnEllenorzesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEllenorzesActionPerformed
         //generált feladat eredményénke ellenörzése
-       
-        osszProbaSZáma++;       
+
+        osszProbaSZáma++;
         if (mnuMuveletOsztas.isSelected()) {
             osszProbaSZáma++;
             lblOsszProba.setText("Összes Probálkozások száma" + osszProbaSZáma);
-        }else if (mnuMuvSzorzas.isSelected()){
+        } else if (mnuMuvSzorzas.isSelected()) {
             szorzasProbaSZáma++;
             lblOsszProba.setText("Összes Probálkozások száma" + osszProbaSZáma);
         }
-        
+
 
     }//GEN-LAST:event_btnEllenorzesActionPerformed
 
@@ -460,14 +468,55 @@ public class Muveletek extends javax.swing.JFrame {
             lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Fálj neve: " + f.getName() + "." + "</html>");
 
             //a tényleges megnyitás
-             Path path = Paths.get(fn);
+            Path path = Paths.get(fn);
             try {
 //               byte[] bajtTomb = Files.readAllBytes(path);
 //               byte egyBajt = bajtTomb[0];
-               int temp = 67;
-               List<String> stringlista = Files.readAllLines(path);
-               String egySor = stringlista.get(0);
-                
+
+                List<String> stringlista = Files.readAllLines(path);
+                //fejléc: össz
+                int lblIndex = 0;
+                for (int i = 1; i < stringlista.size(); i++) {
+                    String egySor = stringlista.get(1);
+                    String[] adatok = egySor.split(": ");
+                    JLabel lbl = lblTomb[lblIndex + 1];
+                    lbl.setText(lblTextTomb[lblIndex] + adatok[2]);
+                    adatok = adatok[1].split(" ");
+                    String kerdSzama = adatok[0];
+                    lbl = lblTomb[lblIndex];
+                    lbl.setText(lblTextTomb[lblIndex] + adatok[0]);
+                    lblIndex +=2;
+                }
+
+//               String egySor = stringlista.get(1);
+//               String[] adatok = egySor.split(": ");
+//               String proSzama = adatok[2];
+//               lblOsszProba.setText("Össz Probálkozások száma: " + proSzama);
+//               adatok = adatok[1].split(" ");
+//               String kerdSzama = adatok[0];
+//               lblOsszKerdes.setText("Össz kérdések száma: " + kerdSzama);
+//               
+//               //összeadás
+//               egySor = stringlista.get(2);
+//               adatok = egySor.split(": ");
+//               proSzama = adatok[2];
+//               lblOsszeadProba.setText("Összead Probálkozások száma: " + proSzama);
+//               adatok = adatok[1].split(" ");
+//               kerdSzama = adatok[0];
+//               lblOsszeadKerdes.setText("Összead kérdések száma: " + kerdSzama);
+//               //kivonás
+//               
+//               //osztás
+//               egySor = stringlista.get(4);
+//               adatok = egySor.split(": ");
+//               proSzama = adatok[2];
+//               lblOsztasProba.setText("Osztás Probálkozások száma: " + proSzama);
+//               adatok = adatok[1].split(" ");
+//               kerdSzama = adatok[0];
+//               lblOsztasKerdes.setText("Osztás kérdések száma: " + kerdSzama);
+//               
+//               //szorzás
+                int temp = 67;
                 // a tényleges megnyitás vége
             } catch (IOException ex) {
                 Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
@@ -582,8 +631,6 @@ public class Muveletek extends javax.swing.JFrame {
 
     private String tartalomOsszealitasa() {
         String statisztika = "Alapműveletek gyakorlása statisztika:\n";
-
-        JLabel[] lblTomb = new JLabel[]{lblOsszKerdes, lblOsszProba, lblOsszeadKerdes, lblOsszeadProba, lblKivonasKerdes, lblKivonasProba, lblOsztasKerdes, lblOsztasProba, lblSzorzasKerdes, lblSzorzasProba};
 
 //       statisztika+=lblOsszKerdes.getText();
 //       statisztika+=lblOsszProba.getText();
